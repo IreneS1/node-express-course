@@ -28,6 +28,7 @@ let item = "Enter something below.";
 const form = () => {
   return `
   <body>
+  <label>Guess a number between 0 - 100</label>
   <p>${item}</p>
   <form method="POST">
   <input name="item"></input>
@@ -43,9 +44,20 @@ const server = http.createServer((req, res) => {
   if (req.method === "POST") {
     getBody(req, (body) => {
       console.log("The body of the post is ", body);
+      const numberGuess = Math.random() * (100 - 1) + 1;
+      const userGuess = body['item']
+      console.log(numberGuess)
       // here, you can add your own logic
-      if (body["item"]) {
-        item = body["item"];
+      if (userGuess) {
+        if (userGuess < numberGuess) {
+          item = `Your guess is too low. The number was ${numberGuess}`
+        }
+        if (userGuess > numberGuess) {
+          item = `Your guess is too high. The number was ${numberGuess}`
+        }
+        if (userGuess === numberGuess) {
+          item = `You guessed the right number! The number was ${numberGuess}`
+        }
       } else {
         item = "Nothing was entered.";
       }
