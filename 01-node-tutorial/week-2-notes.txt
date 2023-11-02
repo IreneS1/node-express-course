@@ -1,0 +1,53 @@
+Event Loop in Node.js
+
+Task Queue
+- Macro-Tasks(task queue): setTimeout, setInterval, and setImmediate.
+- Micro-Tasks: process.nextTick and Promise callback.
+
+Order of execution:
+1. All functions that are in call stack get executed and popped off the call-stack.
+2. When call stack is empty, all queued-up micro-tasks are popped onto the call-stack
+and one by one get executed, then popped off the call-stack.
+3. when both call-stack and micro-task queue are empty, all queued-up macro-tasks are popped onto the call-stack and get executed.
+Then they get popped off the call-stack.
+
+Example:
+console.log(1);
+setTimeout(function foo() {
+    console.log(‘foo’);
+}, 0);
+Promise.resolve()
+    .then(function boo() {
+        console.log(‘boo’);
+    });
+console.log(2);
+// Output:
+// 1
+// 2
+// 'boo'
+// 'foo'
+
+------------------------------------------
+
+NPM 
+npm - global command, comes with Node
+npm --version
+
+local dependency - use it only in this particular project
+npm i <packageName>
+
+global dependency - use it in any project
+npm install -g <packageName>
+sudo npm install -g <packageName> (mac)
+
+package.json - manifest file
+npm init (step by step, press enter to skip)
+npm init -y (everything default)
+
+npm gives access to a large library of reusable code available at npmjs.com
+
+- installed package 'nodemon' - nodemon is a replacement wrapper for node
+    is a tool that helps develop Node.js based applications by automatically 
+    restarting the node application when file changes in the directory are detected.
+- npm run start || npm start
+- npm run dev 
